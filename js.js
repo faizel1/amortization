@@ -180,8 +180,8 @@ function amort(balance, interestRate, terms,year,month,day,date)
 	<thead>
         <tr>
 
-			<th>Month #</th><th>Payment Date</th><th>Balance</th>
-			<th>Interest</th><th>Principal</th>
+			<th>Month #</th><th>Payment Date</th><th> Principal </th>
+			<th>Interest</th><th>Balance</th>
 
         </tr>
     </thead>
