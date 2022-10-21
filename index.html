@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- <meta http-equiv="refresh" content="1"> -->
+  <title>Document</title>
+  <link href="./style.css" rel="stylesheet" />
+  <script src="./html2pdf.js-master/dist/html2pdf.min.js"></script>
+  <script src="./html2pdf.js-master/dist/html2pdf.bundle.js" ></script>
+
+    <!-- Js PDF Auto Table -->
+  <script language="JavaScript" type="text/javascript" src="js.js"></script>
+  <style>
+    .header,
+    .header-space {
+      height: 100px;
+    }
+
+    .footer,
+    .footer-space {
+      height: 100px;
+      page-break-before: always;
+
+    }
+
+    .header {
+      position: fixed;
+      top: 0;
+      width: 90vw;
+      display: block;
+
+    }
+
+    .footer {
+      position: fixed;
+      bottom: 0;
+      width: 100vw;
+      display: none;
+
+    }
+
+
+    .left {
+      position: fixed;
+      background-color: gold;
+      background: linear-gradient(45deg, gold, rgb(77, 22, 243));
+      padding: 10px;
+      padding-top: 5vh;
+      width: 20vw;
+      height: 90vh;
+      border-radius: 5px;
+      color: lightcyan;
+      font-size: larger;
+    }
+
+    @media all {
+      .page-break {
+        display: auto;
+      }
+    }
+
+    @media print {
+      .footer {
+        display: block;
+      }
+
+      .header {
+        display: block;
+      }
+
+      .page-break {
+        display: block;
+        page-break-before: always;
+      }
+  .manipulate{
+    display: none;
+  }
+
+      @page {
+        size: landscape;
+      }
+
+      table {
+        /* margin-top:50px; */
+        /* margin-left: 40vw;  */
+        justify-self: center;
+        /* display: flex; */
+        justify-content: center;
+        align-items: center;
+      }
+    }
+  </style>
+
+</head>
+
+<body id="body">
+  <div class="left">
+    <p id="leftData" style="padding-left:3vw;">Amortization Data</p>
+    <div class="manipulate" >
+
+      <input type="button" style="display: none; margin-top: 30vh;" id="generatePdf" onclick="generatePdf()"
+      value="Generate Pdf" />
+      <input type="button" onclick="window.print();" style="display: none;margin-top: 10px;" id="printDocument"
+      value="Print The Document" />
+      <input type="button" onclick="location.href=location.href" style="display: none;margin-top: 10px;" id="clearData"
+      value="Clear Data" />
+    </div>
+
+  </div>
+  <div class="right" id="right">
+
+
+    <!-- <div  class="container" > -->
+
+
+    <form id="input" class="input">
+      <!-- <fieldset style="border-color: gray" >
+          <legend>Inputs</legend> -->
+      <input autocomplete="false"  name="hidden" type="number" class="number" id="principal" required
+        placeholder="Loan Amount" />
+      <br />
+      <input autocomplete="false"  name="hidden" type="number" class="number" id="interest" required
+        placeholder="Interest Rate" />
+      <br />
+      <input autocomplete="false"  name="hidden" type="number" class="number" id="terms" required
+        placeholder="Term( No of Month)" />
+      <br />
+
+
+      <span style="display: flex;  width: 30vw;justify-content: center;">
+
+        <input id="day"  class="dateInput" type="number" min=1 max=31 placeholder="day" />
+        <input id="month"  class="dateInput" type="number" min=1 max=12 placeholder="month" />
+        <input id="year"  class="dateInput" type="number" min=2022 max=2100 placeholder="year" />
+      </span>
+      <br />
+      <input style="width: 30vw" type="button" value="Calculate" onclick="getValues()" />
+      <!-- </fieldset> -->
+    </form>
+    <!-- <input  type="button"  style="float: right;display: none;"  id="generatePdf" onclick="generatePdf()" value="Generate Pdf" /> -->
+    <div id="pdf">
+
+      <form class="output" id="output">
+
+        <!-- <fieldset>
+            <legend>Outputs</legend> -->
+        <div class="result" id="Result"></div>
+        <!-- </fieldset>						 -->
+    </div>
+    </form>
+    <!-- </div> -->
+  </div>
+  </td>
+  </tr>
+  </tbody>
+  <tfoot>
+    <tr>
+      <td>
+        <!-- <div class="footer-space">&nbsp;</div> -->
+      </td>
+    </tr>
+  </tfoot>
+  </table>
+  <div class="header">
+    <div style="width:60vw;margin-left:23vw ;">
+
+      <img src="./headerNew.jpg" height="50px" width="100%" alt="">
+    </div>
+  </div>
+  <div class="footer">
+
+    <div style="width:70vw;margin-top: 45px;margin-left:23vw;">
+
+      <img src="./footerNew.jpg" height="50px" width="100%" alt="">
+    </div>
+  </div>
+  </div>
+
+</body>
+
+
+</html>
+<script>
+  
+
+var wwOpenInstalled;
+if (wwOpenInstalled || parent.wwOpenInstalled) {
+	if (window.Event) {
+		document.captureEvents (Event.MOUSEUP);
+	}
+	document.onmouseup = (parent.wwOpenInstalled) ? parent.wwOnMouseUp : wwOnMouseUp;
+}
+
+function generatePdf2() {
+  var doc = new jsPDF(); 
+var specialElementHandlers = { 
+    '#editor': function (element, renderer) { 
+        return true; 
+    } 
+};
+$('#generatePdf').click(function () { 
+    doc.fromHTML($('#pdf').html(), 15, 15, { 
+        'width': 190, 
+            'elementHandlers': specialElementHandlers 
+    }); 
+    doc.save('sample-page.pdf'); 
+});
+}
+
+function generatePdf() {
+      var today = new Date();
+      var date =
+        today.getFullYear() +
+        "-" +
+        (today.getMonth() + 1) +
+        "-" +
+        today.getDate();
+      var time =
+        today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+      var dateTime = date + " " + time;
+
+      var element = document.getElementById("body");
+
+      const name = "amortization".concat(dateTime, ".pdf");
+      var opt = {
+        margin: 1,
+        filename: name,
+        image: { type: "pdf", quality: 0.98 },
+        html2canvas: { scale: 2 },
+        jsPDF: { unit: "in", format: "letter", orientation: "landscape" },
+		pdfCallback: pdfCallback
+
+      };
+
+      // New Promise-based usage:
+      html2pdf().set(opt).from(element).save();
+      // html2pdf().from(element).save();
+
+      // Old monolithic-style usage:
+      // html2pdf(element, opt);
+    }
+
+	function pdfCallback(pdfObject) {
+    var number_of_pages = pdfObject.internal.getNumberOfPages()
+    var pdf_pages = pdfObject.internal.pages
+    var myFooter = "Footer info"
+    for (var i = 1; i < pdf_pages.length; i++) {
+        // We are telling our pdfObject that we are now working on this page
+        pdfObject.setPage(i)
+
+        pdfObject.text("my header text", 10, 10)
+
+        // The 10,200 value is only for A4 landscape. You need to define your own for other page sizes
+        pdfObject.text(myFooter, 10, 200)
+    }
+}
+
+</script>
