@@ -160,9 +160,11 @@ function amort(balance, interestRate, terms,year,month,day,date)
         1+monthlyRate, -terms)));
 	    
 		var date=new Date(year,month-1,day).toDateString().replace(/\s/g, '/');
+		// let date=new Date(year,month-1,day).toDateString().replace(/\s/g, '/');
+
 	//begin building the return string for the display of the amort table
     var result1 = 
-	" <h5> Loan Date : " + (date) +  "<br />  " + 
+	" <h5> Loan Date : " + date +  "<br />  " + 
 	"  Loan Amount : " + balance.toFixed(2) +  "<br />  " + 
         " Interest Rate: " + (interestRate*100).toFixed(2) +  "%<br />" +
         " Number of Months: " + terms + "<br />" +
@@ -174,7 +176,7 @@ function amort(balance, interestRate, terms,year,month,day,date)
     //add header row for table to return string
 	var result = `
 	
-	<table border=0  class='styled-table' style=margin-left:5vw;margin-top:10vh >
+	<table border=0  class='styled-table' style=margin-left:5vw;margin-top:10vh; >
 	
 	<caption style=color:gold;font-size:30px >Year 1</caption>
 	<thead>
